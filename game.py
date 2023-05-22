@@ -10,6 +10,7 @@ class Main:
     gridX = Grid(size)
 
     def printScreen(self,programFlag=True):
+        os.system("cls")
         print("---------------------\n"
               "|    PEEK-A-BOO     |\n"
               "---------------------\n")
@@ -52,6 +53,7 @@ class Main:
                             element1 == element2):
                         print("input error: row entry is out of range for this grid. Please try again.")
 
+                #os.system("cls")
                 index1=((size*int(element1[1])) + (ord(element1[0])-97))
                 index2=((size*int(element2[1])) + (ord(element2[0])-97))
 
@@ -67,19 +69,46 @@ class Main:
                 #gridX.updateCell(index1,index2)
                 # do this
             elif(userInput=='2'):
-                print("1")
+                index1 = "x9"
+                visibilityflag=True
+
+                while ((ord(index1[0]) < 97) or (ord(index1[0]) > (96 + size)) or
+                       (int(index1[1]) < 0) or (int(index1[1]) > size - 1) or
+                visibilityflag):  # Validating cell coordinates for element 2.
+
+                    index1 = input("Enter cell coordinates (e.g., a0): ").lower()
+                    intIndex1 = ((size * int(index1[1])) + (ord(index1[0]) - 97))
+
+
+                    if ((ord(index1[0]) < 97) or (ord(index1[0]) > (96 + size)) or
+                       (int(index1[1]) < 0) or (int(index1[1]) > size - 1)):
+                        print("input error: row entry is out of range for this grid. Please try again.")
+
+                    elif (gridX.checkVisibility(intIndex1)):
+                        print("input error: element is already visible! ")
+
+                    else:
+                        visibilityflag=False
+                        gridX.unCoverCell(intIndex1)
+                        self.printScreen(False)
+
                 # do this
             elif(userInput=='3'):
-                print("1")
+                gridX.revealGrid()
+                self.printScreen(False)
+                userInput='5'
                 # do this
             elif(userInput=='4'):
-                print("1")
-            os.system("cls")
+                #TODO score reset.
+                gridX.resetGame()
+                gridX.randArray()
+                self.printScreen()
+            #os.system("cls")
             self.printScreen()
                 #do this
 
 
-
+#os.system("cls")
 myinstance = Main()
 myinstance.printScreen()
 myinstance.menu()

@@ -15,6 +15,23 @@ class Grid:
         rand_flag[index1]=True
         rand_flag[index2]=True
 
+    def checkVisibility(self,index1): # check if given coordinate already visible?
+        if(rand_flag[index1]):
+            return True # return true if element is already visible
+        else:
+            return False
+
+    def unCoverCell(self,index1):
+        rand_flag[index1] = True
+
+    def revealGrid(self):
+        for i in range(len(rand_flag)):
+            rand_flag[i]=True
+
+    def resetGame(self):
+        rand_Array.clear()
+        rand_flag.clear()
+
     def  checkCell(self, index1, index2):
         if(rand_Array[index1]==rand_Array[index2]):
             rand_flag[index1] = True
@@ -35,8 +52,6 @@ class Grid:
 
 
     def randArray(self):
-        #size=self
-
         number_counts = {}  # Dictionary to maintain frequency of each element.
         while len(rand_Array) < self.size ** 2:  # Run until full grid size.
             random_number = random.randint(1, (self.size ** 2) / 2)
