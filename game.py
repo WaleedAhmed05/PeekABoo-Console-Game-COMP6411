@@ -7,6 +7,7 @@ class Main():
     size=None
     gridX=None
     score=None
+    unCoverCounter=0
     boardMessage=""
 
     def __init__(self,size):
@@ -28,7 +29,6 @@ class Main():
         self.gridX.blankGrid()
         print("\n")
         print(self.boardMessage)
-        print("\n")
         print("1. Let me select two elements\n"
               "2. Uncover one element for me\n"
               "3. I give up - reveal the grid\n"
@@ -36,7 +36,7 @@ class Main():
               "5. Exit\n")        #Menu.
 
     def setBoardMessage(self,message):
-        self.boardMessage=message
+        self.boardMessage=str(message)+"\n"
 
     def menu(self):
         userInput=0
@@ -67,15 +67,18 @@ class Main():
 
                 index1=((self.size*int(element1[1])) + (ord(element1[0])-97))
                 index2=((self.size*int(element2[1])) + (ord(element2[0])-97))
+                self.score.countGuess(1)
 
-
-                if(not self.gridX.checkCell(index1,index2)):
+            if(not self.gridX.checkCell(index1,index2)):
                     self.gridX.updateCell(index1,index2)
                     self.printScreen(False)
                     time.sleep(2)
                     self.gridX.switchBacktoHide(index1,index2)
                     self.printScreen(False)
 
+            if (all(self.gridX.getrandFlag())):
+                self.setBoardMessage("Game Ended! Your Score! " + str(self.score.getScore()))
+                userInput = '5'
 
                 #gridX.updateCell(index1,index2)
                 # do this
@@ -99,24 +102,33 @@ class Main():
                         print("input error: element is already visible! ")
 
                     else:
+                        self.unCoverCounter+=1
                         visibilityflag=False
                         self.score.countGuess(2)
                         self.gridX.unCoverCell(intIndex1)
                         self.printScreen(False)
 
-                if (False in self.gridX.getrandFlag()):
-                    self.setBoardMessage("hello")
+
+
+                if (self.unCoverCounter == (self.size ** 2)):
+                    self.setBoardMessage("You cheated - Loser!. You're score is 0!")
+                    userInput='5'#end game.
+                elif(all(self.gridX.getrandFlag())):
+                    self.setBoardMessage("Game Ended! Your Score! " + str(self.score.getScore()))
+
 
 
 
             # do this
             elif(userInput=='3'):
+                self.setBoardMessage("")
                 self.gridX.revealGrid()
                 self.printScreen(False)
-                userInput='5'
+                userInput='5' #end game.
                 # do this
             elif(userInput=='4'):
                 #TODO score reset.
+                self.setBoardMessage("")
                 self.gridX.resetGame()
                 self.gridX.randArray()
                 self.printScreen()
@@ -129,15 +141,18 @@ class Score:
     minimum_possible_guesses=None
 
     def __init__(self,sizeXx):
-        self.minimum_possible_guesses=sizeXx*2
+        self.minimum_possible_guesses=(sizeXx**2)/2
 
     def countGuess(self,guess):
         self.guessAttempts+=guess
-    def getScore(self,score):
+    def getScore(self):
         #Score = (minimum_possible_guesses / actual_guesses) * 100
-        return self.score
-    def setScore(self,score):
-        self.score=score
+        player_score=(self.minimum_possible_guesses / self.guessAttempts)*100
+        return player_score
+    def resetScore(self):
+        self.score=0
+        self.guessAttempts=0
+
     def updateScore(self,guess_attempt):
         print("")
 
@@ -151,5 +166,7 @@ if(sizeX=='2' or sizeX=='4' or sizeX=='6'):
     myinstance.menu()
 else:
     print("Invalid Grid size!")
+
+#TODO - fix already visible thing and remove it
 
 
