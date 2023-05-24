@@ -5,6 +5,7 @@ class Grid:
     global rand_Array,rand_flag
     rand_Array=[] # list of random elements.
     rand_flag=[] # to maintain visibility of grid elements
+    size=None
 
 
     def __init__(self, size):
@@ -42,13 +43,9 @@ class Grid:
     def switchBacktoHide(self,index1,index2):
         rand_flag[index1] = False
         rand_flag[index2] = False
-        # self.blankGrid()
-        # print("test---")
-        # print(rand_flag[index1])
 
-
-
-
+    def getrandFlag(self):
+        return self.rand_flag
 
 
     def randArray(self):
@@ -81,21 +78,25 @@ class Grid:
         for x in range(self.size):
             if (x == 0):
                 print('  ', end=" ")
-            print('[' + chr(x + 65) + ']', end=" ")  # print First row
+            print('[' + chr(x + 65) + ']', end="   ")  # print First row
         print(" ")
 
         counter=0
         for i in range(self.size):
 
+            print(" \n")
             for j in range(self.size):
                 if (j == 0):
                     print('[' + str(i) + ']', end=" ")  # print first column
+
                 if(rand_flag[counter]):
-                    print(str(rand_Array[counter]), end="   ")
+                    #print(str(rand_Array[counter]), end="       ")
+                    print('{:<5}'.format(str(rand_Array[counter])), end=" ")
                 else:
-                    print("X", end="   ")
+                    #print("X", end="     ")
+                    print('{:<5}'.format("X"), end=" ")
                 counter+=1
-            print(" ")
+            #print(" \n")
 
 
 #print(ord('A'.lower()))
