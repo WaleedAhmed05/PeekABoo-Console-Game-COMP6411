@@ -42,6 +42,8 @@ class Main():
         userInput=0
         while userInput!='5':
             userInput=input("Select: ")
+            index1=0
+            index2=0
 
             if (userInput=='1'):
                 element1="x9"
@@ -98,8 +100,8 @@ class Main():
                        (int(index1[1]) < 0) or (int(index1[1]) > self.size - 1)):
                         print("input error: row entry is out of range for this grid. Please try again.")
 
-                    elif (self.gridX.checkVisibility(intIndex1)):
-                        print("input error: element is already visible! ")
+                    # elif (self.gridX.checkVisibility(intIndex1)):
+                    #     print("input error: element is already visible! ")
 
                     else:
                         self.unCoverCounter+=1
@@ -132,7 +134,7 @@ class Main():
                 self.gridX.resetGame()
                 self.gridX.randArray()
                 self.printScreen()
-            self.printScreen()
+            #self.printScreen()
 
 class Score:
 
@@ -168,5 +170,6 @@ else:
     print("Invalid Grid size!")
 
 #TODO - fix already visible thing and remove it
+#TODO - check input validation.
 
 
