@@ -72,7 +72,7 @@ class Main():
                 self.score.countGuess(1)
 
             if(not self.gridX.checkCell(index1,index2)):
-                    self.gridX.updateCell(index1,index2)
+                    self.gridX.updateCell(index1,index2) #TODO fix this bug.
                     self.printScreen(False)
                     time.sleep(2)
                     self.gridX.switchBacktoHide(index1,index2)
@@ -114,6 +114,7 @@ class Main():
 
                 if (self.unCoverCounter == (self.size ** 2)):
                     self.setBoardMessage("You cheated - Loser!. You're score is 0!")
+                    self.printScreen()
                     userInput='5'#end game.
                 elif(all(self.gridX.getrandFlag())):
                     self.setBoardMessage("Game Ended! Your Score! " + str(self.score.getScore()))
