@@ -5,7 +5,7 @@ Assignment-01 COMP6411 - Comparative Study of Programming Languages @ Concordia 
 ### Short Summary
 The game will display a square grid, with the columns labeled with letters, and the rows with numbers. Player's job is to find the hidden pairs in as few
 guesses as possible. <br>
-![Main menu](https://github.com/WaleedAhmed05/PeekABoo/blob/GameInterface/Main_menu.png?raw=true)
+![Main menu](https://github.com/WaleedAhmed05/PeekABoo/blob/main/GameInterface/Main_menu.png?raw=true)
 
 ## Commands
 Run this command to start game, choose grid size as either 2,4 or 6.
@@ -38,6 +38,8 @@ Initially grid size is restricted to either 2x2, 4x4 or 6x6 dimension, but it ca
         ...
         ...
 ```
+xX-End note-Xx
+Feel Free to fork and optimize code, pull requests will be accepted.
 
 
 
